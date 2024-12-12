@@ -1,20 +1,20 @@
-#include "Observer.h"
-#include "Subject.h"
+#include "IObserver.h"
+#include "ISubject.h"
 
 int main() {
-	Observer observer1("Anupam");
-	Observer observer2("David");
-	Observer observer3("Ortan");
+	Watcher watcher1("Anupam");
+	Watcher watcher2("David");
+	Watcher watcher3("Ortan");
 
-	std::unique_ptr<Subject> subject = std::make_unique<Subject>();
-	subject->addObserver(&observer1);
-	subject->addObserver(&observer2);
-	subject->addObserver(&observer3);
+	std::unique_ptr<ISubject> subject = std::make_unique<ISubject>();
+	subject->addObserver(&watcher1);
+	subject->addObserver(&watcher2);
+	subject->addObserver(&watcher3);
 
 	subject->notifyAll();
 	
 	std::cout << "\n\n";
-	subject->removeObserver(&observer2);
+	subject->removeObserver(&watcher2);
 	subject->notifyAll();
 
 	return 0;
