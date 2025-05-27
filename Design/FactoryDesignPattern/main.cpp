@@ -25,24 +25,34 @@ public:
 	}
 };
 
+enum class ShapeType {
+	CIRCLE,
+	RECTANGLE,
+	SQUARE
+};
+
 class ShapeFactory {
 public:
-	unique_ptr<Shape> getShape(const string &str) {
+	static unique_ptr<Shape> getShape(ShapeType type) {
+		switch (type) {
 
-		if(str == "CIRCLE")
-			return make_unique<Circle>();
-		else if(str == "RECTANGLE")
-			return make_unique<Rectangle>();
-		else if (str == "SQUARE")
-			return make_unique<Square>();
-		else
-			return nullptr;
+			case ShapeType::CIRCLE:
+				return make_unique<Circle>();
+			case ShapeType::RECTANGLE:
+				return make_unique<Rectangle>();
+			case ShapeType::SQUARE:
+				return make_unique<Square>();
+			default:
+				return nullptr;
 		}
+	}
 };
 
 int main() {
-	unique_ptr<ShapeFactory> objshapeFact = make_unique<ShapeFactory>();
+	
+	unique_ptr<Shape> shape = ShapeFactory::getShape(ShapeType::CIRCLE);
+	shape->draw();
 
-	unique_ptr<Shape> shape = objshapeFact->getShape("CIRCLE");
+	shape = ShapeFactory::getShape(ShapeType::RECTANGLE);
 	shape->draw();
 }
